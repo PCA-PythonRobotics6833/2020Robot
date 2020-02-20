@@ -15,59 +15,40 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
  */
 public class Lift {
 
-PWMVictorSPX V_1;
-PWMVictorSPX V_2;
+    PWMVictorSPX V_1;
+    PWMVictorSPX V_2;
 
-Joystick stick; 
+    Joystick stick;
 
-    public Lift(int m1, int m2, Joystick controller1){
+    public Lift(int m1, int m2, Joystick controller1) {
 
-         V_1 = new PWMVictorSPX(m1);
-         V_2 = new PWMVictorSPX(m2);
+        V_1 = new PWMVictorSPX(m1);
+        V_2 = new PWMVictorSPX(m2);
 
-         stick = controller1; 
+        stick = controller1;
     }
 
-    public void liftControl(){
+    public void liftControl() {
 
-/*
-        if(stick.getRawButtonPressed(4)){
+        if (stick.getRawAxis(1) > .2) {
 
-            V_1.set(.3);
-            V_2.set(.3); 
-            
+            V_1.set(-10);
+            V_2.set(-10);
         }
 
-        if(stick.getRawButtonPressed(5)){
-
-            V_1.set(-.3);
-            V_2.set(-.3); 
-            
-        }
-*/
-
-        if(stick.getRawButton(5) == true){
-
-            V_1.set(-.7);
-            V_2.set(-.7); 
-        }
-
-        else if(stick.getRawButton(6) == true){
+        else if (stick.getRawAxis(1) < -.2) {
 
             V_1.set(.7);
-            V_2.set(.7); 
+            V_2.set(.7);
         }
 
-        else{
+        else {
 
             V_1.set(0);
-            V_2.set(0); 
+            V_2.set(0);
 
         }
 
-
-
     }
-
 
 }

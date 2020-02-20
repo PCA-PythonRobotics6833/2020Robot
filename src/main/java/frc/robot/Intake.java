@@ -13,79 +13,69 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 /**
  * Add your docs here.
  */
-public class Intake{
+public class Intake {
 
     PWMVictorSPX TopMotor;
-    PWMVictorSPX BottomMotor; 
+    PWMVictorSPX BottomMotor;
     Joystick stick;
     double Throttle_value;
     int Throttle_axis = 3;
-    double deadzone = .2; 
+    double deadzone = .2;
     int Inverter = -1;
 
-    public Intake(int bot, int top, Joystick controller2){
+    public Intake(int bot, int top, Joystick controller2) {
 
         BottomMotor = new PWMVictorSPX(bot);
         TopMotor = new PWMVictorSPX(top);
-        
-        stick = controller2; 
+
+        stick = controller2;
 
     }
 
-    public void intakeControl(){
+    public void intakeControl() {
 
-        //old code 
+        // left trigger /shoot
+        if (stick.getRawAxis(2) > .5) {
 
-        /*
-        Throttle_value = stick.getRawAxis(Throttle_axis);
-        WindowMotor.set(stick.getRawAxis(1)/(2-Throttle_value));
-        RedLine.set(stick.getRawAxis(5)/(2-Throttle_value)); 
-        */
-        
-        //new code 
-         if(stick.getRawAxis(2) > .5){
-
-            BottomMotor.set(-1);
+            BottomMotor.set(.7);
             TopMotor.set(.6);
 
-           // RedLine.set(stick.getRawAxis(2)*Inverter/2);
-           // WindowMotor.set(stick.getRawAxis(2)/3); 
         }
-
-       else if(stick.getRawAxis(3) > .5){
-
-  //          RedLine.set(stick.getRawAxis(3)*Inverter/2);
-//            WindowMotor.set(stick.getRawAxis(3)*Inverter/3); 
+        // right trigger/ pick up
+        else if (stick.getRawAxis(3) > .5) {
 
             BottomMotor.set(-.3);
             TopMotor.set(-.4);
         }
 
-       
+        // right bumper/all out
+        else if (stick.getRawButton(6) == true) {
 
-        else if(stick.getRawButton(5) == true){
-
-            BottomMotor.set(.3);
-            TopMotor.set(-.3);
+            BottomMotor.set(-1);
+            TopMotor.set(1);
 
         }
 
-        else if(stick.getRawAxis(3) < deadzone || stick.getRawAxis(2) < deadzone || stick.getRawButton(8) == false){
+        else if (stick.getRawButton(3) == true) {
+
+            BottomMotor.set(-1);
+            TopMotor.set(-1);
+
+        }
+
+        else if (stick.getRawAxis(3) < deadzone || stick.getRawAxis(2) < deadzone || stick.getRawButton(8) == false) {
 
             BottomMotor.set(0);
             TopMotor.set(0);
 
         }
 
-        else{
+        else {
 
             BottomMotor.set(0);
             TopMotor.set(0);
 
         }
-        
-        
-
 
     }
 

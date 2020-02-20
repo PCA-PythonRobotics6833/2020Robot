@@ -7,11 +7,14 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * Add your docs here.
@@ -35,6 +38,9 @@ public class Drivetrain {
     double  left_stick;
     double  right_stick;
 
+    double left_mag;
+    double right_mag;
+
 
     public Drivetrain(int m1, int m2, int m3, int m4, int m5, int m6, Joystick controller1){
 
@@ -56,7 +62,6 @@ public class Drivetrain {
 
         myDrive = new DifferentialDrive(T_1, T_2);
 
-    
     }
     
 
@@ -69,68 +74,36 @@ public class Drivetrain {
         right_stick = (stick.getRawAxis(5)/(2-Throttle_value));
 
         myDrive.tankDrive(left_stick, right_stick);
+        
+    }
+    public void TalonDriveNoLimiter(){
+
+       
+       
+        myDrive.tankDrive(stick.getRawAxis(1)*10 , stick.getRawAxis(5)*10 );
+        
     }
 
-    public void TalonDriveNoLimit(){ 
+    public void MagEncoder(){
 
-        myDrive.tankDrive(stick.getRawAxis(1), stick.getRawAxis(5));
-     
+
+        
+        T_1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
+        T_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
+
+       this.left_mag = (T_1.getSelectedSensorVelocity(0));
+        this.right_mag = (T_2.getSelectedSensorVelocity(0));
+
+    
     }
+    public void SmartDashboard(){
 
-     public void TwoTankDrive(){
-
-        Throttle_value = stick.getRawAxis(Throttle_axis); 
-
-        left_stick = (stick.getRawAxis(1)/(2-Throttle_value));
-        right_stick = (stick.getRawAxis(5)/(2-Throttle_value));
-
-        myDrive.tankDrive(left_stick, right_stick);
-
-    }
-
-     public void TwoTankDriveNoLimit(){
+        SmartDashboard.putNumber("left", left_mag);
+        SmartDashboard.putNumber("left", right_mag);
+        
          
-
-        myDrive.tankDrive(stick.getRawAxis(1), stick.getRawAxis(5));
-
-     }
-     public void no(){
-         
-
-        myDrive.tankDrive(0.0, 0.0);
-
      }
 
-     public void tankDrive(){
 
-            if(stick.getRawButton(7) == true){
-
-                if(stick.getRawButton(3) == true ){
-                
-                    TalonDriveNoLimit();
-                }
-                
-                 else{
-
-                    TalonDrive();
-                }
-            }
-
-             else{
-
-                if (stick.getRawButton(2) == true){
-
-                    TwoTankDriveNoLimit();
-                    
-                }
-                       
-                else{
-                     TwoTankDrive(); 
-                }
-
-            }
-
-     }
-     
 
 }

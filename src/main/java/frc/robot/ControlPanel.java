@@ -47,6 +47,12 @@ Joystick stick;
             Window.set(-.3);
         }
 
+        else{
+
+
+            Window.set(0);
+        }
+
         
 
 

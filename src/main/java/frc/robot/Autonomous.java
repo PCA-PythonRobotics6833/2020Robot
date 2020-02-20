@@ -7,62 +7,47 @@
 
 package frc.robot;
 
-//for navx gyro
-import com.kauailabs.navx.frc.AHRS;
-
-
-
 
 public class Autonomous {
 
+    Drivetrain useTalons;
+    AutoGyroAction useGyro;
+    AutoRobotAction useRobot; 
 
- AHRS ahrs; 
- double rotateToAngle; 
- double currentAngle; 
- Drivetrain drivetrain;
+    public Autonomous(AutoGyroAction intAutoGyro, AutoRobotAction intAutoRobot) {
 
+      this.useGyro = intAutoGyro;
+      this.useRobot = intAutoRobot; 
 
+    }
 
-     public Autonomous(AHRS ahrs){
+    // encoders not usable at the moment, so dont use
+    public void DriveStraight() {
+        /*
+         * a //Value Place Holder if (EncoderInt.left_mag > 10000){
+         * 
+         * EncoderInt.T_1.set(0.5); EncoderInt.T_2.set(0.5);
+         * 
+         * }
+         * 
+         * 
+         * 
+         */
 
         
-     this.ahrs = ahrs; 
-        
-
     }
 
-    public void NavxGyro(){
+    public void StartLeft(){
+/*
+        if while angle is less than 90
+        do useGyro.rotateToAngle180FromStart();
 
-        if(currentAngle > (rotateToAngle+.5)){
+        then do useRobot.Drive();
 
-            //move robot a certain way code right now
-
-        }
-
-        else if(currentAngle <(rotateToAngle-.5)){
-
-            //moves robot other way if it over shoots
-
-        }
-
-        else{
-
-            //robot not move 
-
-        }
-
-    }
-    public void Smartdashboard(){
-     
-        //SmartDashboard.putNumber("Current Angle", currentAngle);
-        System.out.print(ahrs.getAngle());
-
-
-
-
+        then do useRobot.IntakeShoot();
+        */
     }
 
+   
 
-
-    
 }
