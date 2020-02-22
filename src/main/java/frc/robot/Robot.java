@@ -7,73 +7,65 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 public class Robot extends TimedRobot {
-
-  //variables for auto commands
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
 
   // Mechanical
   Joystick stick;
   Joystick stick2;
   Drivetrain drivetrain;
-  Intake Intake;
+  Intake intake;
   Lift lift;
-  ControlPanel intPanel;
+  ControlPanel cPanel;
 
   // Programming
   NetworkTableInstance table = NetworkTableInstance.getDefault();
   AHRS ahrs;
   double rotateToAngle;
   double currentAngle;
-  AutoGyroAction intAutoTest;
+  AutoGyroAction useGyro;
+  AutoRobotAction useRobot;
+  Autonomous useAuto;
+
+  // auto
+  SendableChooser<String> autoChooser = new SendableChooser<>();
+  int startingPosition;
+  String Close;
+  String Mid;
+  String Far;
+  String DoNothing;
 
   @Override
   public void robotInit() {
 
-    //put auto options 
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-
     stick = new Joystick(0);
     stick2 = new Joystick(1);
     drivetrain = new Drivetrain(0, 1, 2, 3, 4, 5, stick);
-    Intake = new Intake(9, 8, stick2);
+    intake = new Intake(9, 8, stick2);
     lift = new Lift(0, 1, stick2);
-    intPanel = new ControlPanel(6, 7, stick2);
-
-    CameraServer.getInstance().startAutomaticCapture(0);
+    cPanel = new ControlPanel(6, 7, stick2);
 
     // programming
-    try {
-      /* Communicate w/navX-MXP via the MXP SPI Bus. */
-      /* Alternatively: I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB */
-      /*
-       * See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for
-       * details.
-       */
-      ahrs = new AHRS(SPI.Port.kMXP);
-    } catch (RuntimeException ex) {
-      DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
-    }
+    useGyro = new AutoGyroAction(ahrs, drivetrain);
+    useRobot = new AutoRobotAction(intake, drivetrain);
+    useAuto = new Autonomous(useGyro, useRobot, ahrs);
 
-    intAutoTest = new AutoGyroAction(ahrs, drivetrain);
+    autoChooser.addOption("Start Close", "Start Close");
+    autoChooser.addOption("Start Mid", "Start Mid");
+    autoChooser.addOption("Start Far", "Start Far");
+    autoChooser.setDefaultOption("Do Nothing", "Do Nothing");
+
+    ahrs = new AHRS(SPI.Port.kMXP);
 
     /*
      * table.startServer(); table.getEntry("BallDistanceX"); NetworkTable powercell
@@ -97,28 +89,57 @@ public class Robot extends TimedRobot {
   }
 
   @Override
+  public void disabledPeriodic() {
+
+    useRobot.DriveOff();
+
+  }
+
+  @Override
   public void robotPeriodic() {
 
-    intAutoTest.SmartDashBoard();
-    drivetrain.SmartDashboard();
+    if (autoChooser.getSelected() == ("Start Close")) {
+      startingPosition = 1;
+    } else if (autoChooser.getSelected() == ("Start Mid")) {
+      startingPosition = 2;
+    } else if (autoChooser.getSelected() == ("Start Far")) {
+      startingPosition = 3;
+    } else if (autoChooser.getSelected() == ("Do Nothing")) {
+      startingPosition = 4;
+    }
+
+    SmartDashboard.putData(autoChooser);
 
   }
 
   @Override
   public void autonomousInit() {
 
+    useGyro.resetGyro();
+
   }
 
   @Override
   public void autonomousPeriodic() {
 
-  //  intAutoTest.rotateToAngleTest();
-
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
-
-    // addsequential
+    switch (startingPosition) {
+    case (1):
+      System.out.println("close");
+      useAuto.StartClose();
+      break;
+    case (2):
+      System.out.println("mid");
+      useAuto.StartMid();
+      break;
+    case (3):
+      System.out.println("far");
+      useAuto.StartFar();
+      break;
+    case (4):
+      System.out.println("nothing");
+      useAuto.DoNothing();
+      break;
+    }
 
   }
 
@@ -126,8 +147,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     lift.liftControl();
-    Intake.intakeControl();
-    intPanel.PanelControl();
+    intake.intakeControl();
+    cPanel.PanelControl();
     drivetrain.TalonDrive();
 
     if (stick.getRawAxis(2) > .5) {

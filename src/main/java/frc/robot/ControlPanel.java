@@ -7,9 +7,7 @@
 
 package frc.robot;
 
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -18,47 +16,38 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class ControlPanel {
 
-WPI_TalonSRX Window;
-WPI_TalonSRX Red;
+    WPI_TalonSRX Window;
+    WPI_TalonSRX Red;
 
-Joystick stick;
+    Joystick stick;
 
-    public ControlPanel(int m_1, int m_2, Joystick controller1){
-
+    public ControlPanel(int m_1, int m_2, Joystick controller1) {
 
         Window = new WPI_TalonSRX(m_1);
         Red = new WPI_TalonSRX(m_2);
 
-        stick = controller1;  
-
+        stick = controller1;
 
     }
 
-    public void PanelControl(){
+    public void PanelControl() {
 
-        if (stick.getRawButton(2) == true){
+        if (stick.getRawButton(2) == true) {
 
             Window.set(.3);
 
         }
 
-        else if(stick.getRawButton(3) == true){
+        else if (stick.getRawButton(3) == true) {
 
             Window.set(-.3);
         }
 
-        else{
-
+        else {
 
             Window.set(0);
         }
 
-        
-
-
     }
 
-
-
 }
-

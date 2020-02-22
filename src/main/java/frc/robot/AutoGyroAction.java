@@ -21,14 +21,21 @@ public class AutoGyroAction {
     double rotateToAngle;
     double currentAngle;
     Drivetrain useTalon;
+    double error;
+    double prevError = 0;
+    double sumError = 0;
+    double output;
+    double p;
 
     public AutoGyroAction(AHRS ahrs, Drivetrain drivetrain) {
 
         this.ahrs = ahrs;
         this.useTalon = drivetrain;
 
-        currentAngle = ahrs.getAngle();
+    }
 
+    public void resetGyro() {
+        ahrs.reset();
     }
 
     public void NavxGyro() {
@@ -55,131 +62,34 @@ public class AutoGyroAction {
 
     }
 
-    public void rotateToAngle90FromStart() {
+    public void rotateToAngle(double target) {
 
-        if (currentAngle < 89.5) {
+        currentAngle = ahrs.getAngle();
+        error = Math.abs((target - currentAngle)) / 360;
+        System.out.println("current angle: " + currentAngle);
 
-            useTalon.T_1.set(0.5);
-            useTalon.T_2.set(-0.5);
+        sumError = sumError + error * .02;
 
-        } else if (currentAngle > 90.5) {
-            useTalon.T_1.set(-0.5);
-            useTalon.T_2.set(0.5);
+        System.out.println("sumError: " + sumError);
 
-        } else {
-            useTalon.T_1.set(0.0);
-            useTalon.T_2.set(0.0);
+        output = .7 * Math.sqrt(error);
+        System.out.println("output: " + output);
 
-        }
+        if (currentAngle < target - 0.5) {
+            useTalon.T_1.set(output);
+            useTalon.T_2.set(output);
+            System.out.println("angle less than target");
 
-    }
-
-    public void rotateToAngleNegative90FromStart() {
-
-        if (currentAngle < -89.5) {
-
-            useTalon.T_1.set(-0.5);
-            useTalon.T_2.set(0.5);
-
-        } else if (currentAngle > -90.5) {
-            useTalon.T_1.set(0.5);
-            useTalon.T_2.set(-0.5);
+        } else if (currentAngle > target + 0.5) {
+            useTalon.T_1.set(-output);
+            useTalon.T_2.set(-output);
+            System.out.println("angle greater than target");
 
         } else {
             useTalon.T_1.set(0.0);
             useTalon.T_2.set(0.0);
-
-        }
-
-    }
-
-    public void rotateToAngle180FromStart() {
-
-        if (currentAngle < 179.5) {
-
-            useTalon.T_1.set(0.5);
-            useTalon.T_2.set(-0.5);
-
-        } else if (currentAngle > 180.5) {
-            useTalon.T_1.set(-0.5);
-            useTalon.T_2.set(0.5);
-
-        } else {
-            useTalon.T_1.set(0.0);
-            useTalon.T_2.set(0.0);
-
-        }
-    }
-
-    public void rotateToAngleNegative180FromStart() {
-
-        if (currentAngle < -179.5) {
-
-            useTalon.T_1.set(-0.5);
-            useTalon.T_2.set(0.5);
-
-        } else if (currentAngle > -180.5) {
-            useTalon.T_1.set(0.5);
-            useTalon.T_2.set(-0.5);
-
-        } else {
-            useTalon.T_1.set(0.0);
-            useTalon.T_2.set(0.0);
-
-        }
-    }
-
-    public void rotateToAngle270FromStart() {
-
-        if (currentAngle < 269.5) {
-
-            useTalon.T_1.set(0.5);
-            useTalon.T_2.set(-0.5);
-
-        } else if (currentAngle > 270.5) {
-            useTalon.T_1.set(-0.5);
-            useTalon.T_2.set(0.5);
-
-        } else {
-            useTalon.T_1.set(0.0);
-            useTalon.T_2.set(0.0);
-
-        }
-    }
-
-    public void rotateToAngleNegative270FromStart() {
-
-        if (currentAngle < -269.5) {
-
-            useTalon.T_1.set(-0.5);
-            useTalon.T_2.set(0.5);
-
-        } else if (currentAngle > -270.5) {
-            useTalon.T_1.set(0.5);
-            useTalon.T_2.set(-0.5);
-
-        } else {
-            useTalon.T_1.set(0.0);
-            useTalon.T_2.set(0.0);
-
-        }
-    }
-
-    public void rotateToAngleTest() {
-
-        if (currentAngle < -269.5) {
-
-            useTalon.T_1.set(-0.001);
-            useTalon.T_2.set(0.001);
-
-        } else if (currentAngle > -270.5) {
-            useTalon.T_1.set(0.001);
-            useTalon.T_2.set(-0.001);
-
-        } else {
-            useTalon.T_1.set(0.0);
-            useTalon.T_2.set(0.0);
-
+            System.out.println("angle on target");
+            sumError = 0;
         }
     }
 

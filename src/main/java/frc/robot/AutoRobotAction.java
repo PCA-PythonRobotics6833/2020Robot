@@ -12,38 +12,63 @@ package frc.robot;
  */
 public class AutoRobotAction {
 
-    Intake useIntake; 
+    Intake useIntake;
     Drivetrain useTalon;
 
-    public AutoRobotAction(Intake intake, Drivetrain drivetrain){
+    public AutoRobotAction(Intake intake, Drivetrain drivetrain) {
 
-        this.useIntake = intake; 
-        this.useTalon = drivetrain; 
+        this.useIntake = intake;
+        this.useTalon = drivetrain;
 
     }
 
+    public void IntakeShoot() {
 
-    public void IntakeShoot(){
-
-        useIntake.BottomMotor.set(.7);
+        useIntake.BottomMotor.set(-.7);
         useIntake.TopMotor.set(.7);
 
     }
 
-    public void IntakePickUp(){
+    public void IntakePickUp() {
 
-        useIntake.BottomMotor.set(.7);
+        useIntake.BottomMotor.set(-.7);
         useIntake.TopMotor.set(-.7);
 
+    }
+
+    public void IntakeStop() {
+
+        useIntake.BottomMotor.set(0.0);
+        useIntake.TopMotor.set(0.0);
 
     }
 
-    public void Drive(){
+    public void DriveForward() {
 
-        useTalon.T_1.set(.5);
-        useTalon.T_2.set(.5);
+        useTalon.T_1.set(-.4);
+        useTalon.T_2.set(.45);
 
     }
 
-    
+    public void DriveForwardSlow() {
+
+        useTalon.T_1.set(-.3);
+        useTalon.T_2.set(.35);
+
+    }
+
+    public void DriveBack() {
+
+        useTalon.T_1.set(.3);
+        useTalon.T_2.set(-.35);
+
+    }
+
+    public void DriveOff() {
+
+        useTalon.T_1.set(0.0);
+        useTalon.T_2.set(0.0);
+
+    }
+
 }
