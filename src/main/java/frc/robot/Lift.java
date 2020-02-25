@@ -30,13 +30,13 @@ public class Lift {
 
     public void liftControl() {
 
-        if (stick.getRawAxis(1) > .2) {
+        if (stick.getRawAxis(1) < -.2) {
 
             V_1.set(-10);
             V_2.set(-10);
         }
 
-        else if (stick.getRawAxis(1) < -.2) {
+        else if (stick.getRawAxis(1) > .2) {
 
             V_1.set(.7);
             V_2.set(.7);

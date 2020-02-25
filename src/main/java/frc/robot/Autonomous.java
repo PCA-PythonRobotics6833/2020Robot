@@ -20,25 +20,25 @@ public class Autonomous {
   int autoStep;
   AHRS ahrs;
 
-  public Autonomous(AutoGyroAction useGyro, AutoRobotAction useRobot, AHRS ahrs) {
+  public Autonomous(AutoGyroAction useGyro, AutoRobotAction useRobot, AHRS ahrs, Timer timer) {
 
     this.useGyro = useGyro;
     this.useRobot = useRobot;
     this.ahrs = ahrs;
-    timer = new Timer();
+    this.timer = timer;
     autoStep = 0;
 
   }
 
+  public void resetStep() {
+    autoStep = 0;
+  }
+
   public void StartMid() {
-
-    timer.start();
-
-    useGyro.resetGyro();
 
     if (autoStep == 0) {
 
-      if (timer.get() < 1) {
+      if (timer.get() < 1.3) {
         useRobot.DriveForward();
       } else {
         autoStep = 1;
@@ -77,7 +77,7 @@ public class Autonomous {
       }
     } else if (autoStep == 4) {
 
-      if (timer.get() < 3) {
+      if (timer.get() < 2.5) {
         useRobot.DriveForwardSlow();
 
       } else {
@@ -120,7 +120,7 @@ public class Autonomous {
         ahrs.reset();
       }
     } else if (autoStep == 8) {
-      if (timer.get() < .5) {
+      if (timer.get() < 1.3) {
         useRobot.DriveForward();
       } else {
         autoStep = 9;
@@ -133,19 +133,16 @@ public class Autonomous {
 
   }
 
+
+
+
+
   public void StartClose() {
-
-    timer = new Timer();
-    autoStep = 0;
-
-    timer.start();
-
-    useGyro.resetGyro();
 
     if (autoStep == 0) {
 
       if (timer.get() < 3) {
-        useRobot.DriveForwardSlow();
+        useRobot.DriveForward();
       } else {
         autoStep = 1;
         timer.reset();
@@ -156,7 +153,7 @@ public class Autonomous {
 
       if (timer.get() < 1.2) {
         useRobot.IntakeShoot();
-      } else {
+      } else { 
         autoStep = 2;
         timer.reset();
         timer.start();
@@ -170,20 +167,22 @@ public class Autonomous {
         autoStep = 3;
         timer.reset();
         timer.start();
+        ahrs.reset();
       }
 
     } else if (autoStep == 3) {
 
-      if (timer.get() < 2) {
+      if (timer.get() < 2.3) {
         useGyro.rotateToAngle(180);
       } else {
         autoStep = 4;
         timer.reset();
         timer.start();
+        ahrs.reset();
       }
     } else if (autoStep == 4) {
 
-      if (timer.get() < 1) {
+      if (timer.get() < 3) {
         useRobot.DriveForward();
       } else {
         autoStep = 5;
@@ -191,21 +190,62 @@ public class Autonomous {
         timer.start();
         ahrs.reset();
       }
-    }
+    } else if (autoStep == 5) {
+
+      if (timer.get() < 2) {
+        useGyro.rotateToAngle(90);
+      } else {
+        autoStep = 6;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+    } else if (autoStep == 6) {
+
+      if (timer.get() < 1.3) {
+        useRobot.DriveForward();
+      } else {
+        autoStep = 7;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+      /*
+    } else if (autoStep == 7) {
+
+      if (timer.get() < 1) {
+        useGyro.rotateToAngle(-90);
+      } else {
+        autoStep = 8;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+    }else if (autoStep == 8) {
+
+      if (timer.get() < 3) {
+        useRobot.DriveForward();
+        useRobot.IntakePickUp();
+      } else {
+        autoStep = 9;
+        timer.reset();
+        timer.start();
+        ahrs.reset();   
+        useRobot.IntakeStop();
+      } */
+    } 
   }
+
+
+
+
 
   public void StartFar() {
 
-    timer = new Timer();
-    autoStep = 0;
-
-    timer.start();
-
-    useGyro.resetGyro();
 
     if (autoStep == 0) {
 
-      if (timer.get() < 1) {
+      if (timer.get() < 1.3) {
         useRobot.DriveForward();
       } else {
         autoStep = 1;
@@ -287,7 +327,7 @@ public class Autonomous {
         ahrs.reset();
       }
     } else if (autoStep == 8) {
-      if (timer.get() < .5) {
+      if (timer.get() < 1.3) {
         useRobot.DriveForward();
       } else {
         autoStep = 9;
@@ -302,9 +342,87 @@ public class Autonomous {
 
   public void DoNothing() {
 
-    useTalons.T_1.set(0);
-    useTalons.T_1.set(0);
+  
 
   }
+
+  public void Test() {
+
+    if (autoStep == 0) {
+
+      if (timer.get() < 3) {
+        useRobot.DriveForward();
+      } else {
+        autoStep = 1;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+    } else if (autoStep == 1) {
+
+      if (timer.get() < 1.2) {
+        useRobot.IntakeShoot();
+      } else { 
+        autoStep = 2;
+        timer.reset();
+        timer.start();
+        useRobot.IntakeStop();
+      }
+    } else if (autoStep == 2) {
+
+      if (timer.get() < .5) {
+        useRobot.DriveBack();
+      } else {
+        autoStep = 3;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+
+    } else if (autoStep == 3) {
+
+      if (timer.get() < 2.3) {
+        useGyro.rotateToAngle(180);
+      } else {
+        autoStep = 4;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+    } else if (autoStep == 4) {
+
+      if (timer.get() < 4.5) {
+        useRobot.DriveForward();
+      } else {
+        autoStep = 5;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      
+      }
+    } else if (autoStep == 5) {
+
+      if (timer.get() < 2) {
+        useRobot.DriveForward();
+        useRobot.IntakePickUp();
+      } else {
+        autoStep = 6;
+        timer.reset();
+        timer.start();
+        ahrs.reset();
+      }
+    }
+  }
+  
+
+
+  public void TestDriveStraightInit() {
+    useRobot.driveStraightInit();
+  }
+  
+  public void TestDriveStraight() {
+    useRobot.driveStraight();
+  }
+
 
 }

@@ -37,15 +37,15 @@ public class Intake {
         // left trigger /shoot
         if (stick.getRawAxis(2) > .5) {
 
-            BottomMotor.set(.7);
-            TopMotor.set(.6);
+            BottomMotor.set(.9);
+            TopMotor.set(.8);
 
         }
         // right trigger/ pick up
         else if (stick.getRawAxis(3) > .5) {
 
-            BottomMotor.set(-.3);
-            TopMotor.set(-.4);
+            BottomMotor.set(-.7);
+            TopMotor.set(-.15);
         }
 
         // right bumper/all out
@@ -55,6 +55,13 @@ public class Intake {
             TopMotor.set(1);
 
         }
+
+        else if (stick.getRawAxis(5) > .1 || stick.getRawAxis(5) < -.1 ) {
+
+            
+            TopMotor.set(stick.getRawAxis(5));
+        }
+
 
         else if (stick.getRawButton(3) == true) {
 

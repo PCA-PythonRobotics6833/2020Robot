@@ -35,7 +35,7 @@ public class AutoGyroAction {
     }
 
     public void resetGyro() {
-        ahrs.reset();
+       ahrs.reset();
     }
 
     public void NavxGyro() {
@@ -62,7 +62,7 @@ public class AutoGyroAction {
 
     }
 
-    public void rotateToAngle(double target) {
+    public void rotateToAngle(double target) {  
 
         currentAngle = ahrs.getAngle();
         error = Math.abs((target - currentAngle)) / 360;
@@ -99,4 +99,7 @@ public class AutoGyroAction {
         System.out.print(ahrs.getAngle());
 
     }
+
+
+    
 }
