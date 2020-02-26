@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
     stick2 = new Joystick(1);
     drivetrain = new Drivetrain(0, 1, 2, 3, 4, 5, stick);
-    intake = new Intake(9, 8, stick2);
+    intake = new Intake(8, 9, stick2);
     lift = new Lift(0, 1, stick2);
     cPanel = new ControlPanel(6, 7, stick2);
     timer = new Timer();
@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     lift.liftControl();
-    intake.intakeControl();
+    intake.NewControl();
     cPanel.PanelControl();
     drivetrain.TalonDrive();
 

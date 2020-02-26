@@ -27,22 +27,22 @@ public class AutoRobotAction {
 
     public void IntakeShoot() {
 
-        useIntake.BottomMotor.set(-.7);
-        useIntake.TopMotor.set(.7);
+        useIntake.botMotor.set(-.7);
+        useIntake.topMotor.set(.7);
 
     }
 
     public void IntakePickUp() {
 
-        useIntake.BottomMotor.set(-.4);
-        useIntake.TopMotor.set(-.15);
+        useIntake.botMotor.set(-.4);
+        useIntake.topMotor.set(-.15);
 
     }
 
     public void IntakeStop() {
 
-        useIntake.BottomMotor.set(0.0);
-        useIntake.TopMotor.set(0.0);
+        useIntake.botMotor.set(0.0);
+        useIntake.topMotor.set(0.0);
 
     }
 
