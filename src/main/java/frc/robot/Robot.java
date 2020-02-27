@@ -135,6 +135,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    //System.out.println(useAuto.getAutoStep());
     System.out.println("startingposition " + startingPosition);
 
     switch (startingPosition) {
@@ -161,6 +162,7 @@ public class Robot extends TimedRobot {
       case (6):
         System.out.println("drive straight");
         useAuto.TestDriveStraight();
+        break;
       }
 
   }

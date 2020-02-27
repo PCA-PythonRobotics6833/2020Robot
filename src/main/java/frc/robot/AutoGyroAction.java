@@ -72,17 +72,23 @@ public class AutoGyroAction {
 
         System.out.println("sumError: " + sumError);
 
-        output = .7 * Math.sqrt(error);
+        //t = 0.6
+        //k = 0.5
+        //0.45 * k
+        output = ((.275 * Math.sqrt(error)) + (0.45 * sumError)); //oscillated +- 5 degrees
+        //output = ((.2 * Math.sqrt(error)) + (0.45 * sumError));   //+- 8 deg
+        //output = ((.15 * Math.sqrt(error)) + (0.45 * sumError));  //+= 6 deg
+        //output = ((.05 * Math.sqrt(error)) + (0.45 * sumError));
         System.out.println("output: " + output);
 
-        if (currentAngle < target - 0.5) {
-            useTalon.T_1.set(output);
-            useTalon.T_2.set(output);
+        if (currentAngle < target - 0.3) {
+            useTalon.T_1.set(output + 0.1);
+            useTalon.T_2.set(output + 0.1);
             System.out.println("angle less than target");
 
-        } else if (currentAngle > target + 0.5) {
-            useTalon.T_1.set(-output);
-            useTalon.T_2.set(-output);
+        } else if (currentAngle > target + 0.3) {
+            useTalon.T_1.set(-1 * (output + 0.1));
+            useTalon.T_2.set(-1 * (output + 0.1));
             System.out.println("angle greater than target");
 
         } else {

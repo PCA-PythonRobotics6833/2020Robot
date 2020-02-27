@@ -94,28 +94,17 @@ public class AutoRobotAction {
 
         if(ahrs.getAngle() < 0.5) {
             //too far to the left
-            rightDrive += .03;
-            leftDrive += .03;
+            rightDrive = .33;
+            leftDrive = -.27;
             System.out.println("drifting to the left");
         } else if(ahrs.getAngle() > 0.5) {
             //too far to the left
-            rightDrive -= .03;
-            leftDrive -= .03;
+            rightDrive = .27;
+            leftDrive = -.33;
             System.out.println("drifting to the right");
         } else {
             rightDrive = .3;
             leftDrive = -.3;
-        }
-
-        if(leftDrive > .3) {
-            leftDrive = .3;
-        } else if(leftDrive < -.3) {
-            leftDrive = -.3;
-        }
-        if(rightDrive > .3) {
-            rightDrive = .3;
-        } else if(rightDrive < -.3) {
-            rightDrive = -.3;
         }
 
         useTalon.T_1.set(leftDrive);

@@ -34,12 +34,16 @@ public class Autonomous {
     autoStep = 0;
   }
 
+  public int getAutoStep() {
+    return autoStep;
+  }
+
   public void StartMid() {
 
     if (autoStep == 0) {
 
       if (timer.get() < 1.3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 1;
         timer.reset();
@@ -58,7 +62,7 @@ public class Autonomous {
     } else if (autoStep == 2) {
 
       if (timer.get() < 1.2) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 3;
         timer.reset();
@@ -78,7 +82,7 @@ public class Autonomous {
     } else if (autoStep == 4) {
 
       if (timer.get() < 2.5) {
-        useRobot.DriveForwardSlow();
+//        useRobot.DriveStraightSlow();
 
       } else {
         autoStep = 5;
@@ -121,7 +125,7 @@ public class Autonomous {
       }
     } else if (autoStep == 8) {
       if (timer.get() < 1.3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 9;
         timer.reset();
@@ -142,7 +146,7 @@ public class Autonomous {
     if (autoStep == 0) {
 
       if (timer.get() < 3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 1;
         timer.reset();
@@ -172,7 +176,7 @@ public class Autonomous {
 
     } else if (autoStep == 3) {
 
-      if (timer.get() < 2.3) {
+      if (timer.get() < 2.5) {
         useGyro.rotateToAngle(180);
       } else {
         autoStep = 4;
@@ -183,7 +187,7 @@ public class Autonomous {
     } else if (autoStep == 4) {
 
       if (timer.get() < 3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 5;
         timer.reset();
@@ -192,7 +196,7 @@ public class Autonomous {
       }
     } else if (autoStep == 5) {
 
-      if (timer.get() < 2) {
+      if (timer.get() < 2.3) {
         useGyro.rotateToAngle(90);
       } else {
         autoStep = 6;
@@ -203,7 +207,7 @@ public class Autonomous {
     } else if (autoStep == 6) {
 
       if (timer.get() < 1.3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 7;
         timer.reset();
@@ -224,7 +228,7 @@ public class Autonomous {
     }else if (autoStep == 8) {
 
       if (timer.get() < 3) {
-        useRobot.DriveForward();
+        useRobot.DriveStraight();
         useRobot.IntakePickUp();
       } else {
         autoStep = 9;
@@ -246,7 +250,7 @@ public class Autonomous {
     if (autoStep == 0) {
 
       if (timer.get() < 1.3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 1;
         timer.reset();
@@ -265,7 +269,7 @@ public class Autonomous {
     } else if (autoStep == 2) {
 
       if (timer.get() < 2.5) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 3;
         timer.reset();
@@ -285,7 +289,7 @@ public class Autonomous {
     } else if (autoStep == 4) {
 
       if (timer.get() < 2) {
-        useRobot.DriveForwardSlow();
+//        useRobot.DriveStraightSlow();
 
       } else {
         autoStep = 5;
@@ -328,7 +332,7 @@ public class Autonomous {
       }
     } else if (autoStep == 8) {
       if (timer.get() < 1.3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 9;
         timer.reset();
@@ -348,10 +352,13 @@ public class Autonomous {
 
   public void Test() {
 
+    useGyro.rotateToAngle(90);
+
+    /*
     if (autoStep == 0) {
 
       if (timer.get() < 3) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 1;
         timer.reset();
@@ -392,7 +399,7 @@ public class Autonomous {
     } else if (autoStep == 4) {
 
       if (timer.get() < 4.5) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
       } else {
         autoStep = 5;
         timer.reset();
@@ -403,7 +410,7 @@ public class Autonomous {
     } else if (autoStep == 5) {
 
       if (timer.get() < 2) {
-        useRobot.DriveForward();
+        useRobot.driveStraight();
         useRobot.IntakePickUp();
       } else {
         autoStep = 6;
@@ -411,7 +418,8 @@ public class Autonomous {
         timer.start();
         ahrs.reset();
       }
-    }
+    }*/
+
   }
   
 
