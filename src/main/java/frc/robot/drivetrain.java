@@ -27,6 +27,7 @@ public class Drivetrain {
     WPI_VictorSPX V_3;
     WPI_VictorSPX V_4;
 
+    
     Joystick stick;
 
     DifferentialDrive myDrive;
@@ -55,6 +56,11 @@ public class Drivetrain {
         V_2.follow(T_1);
         V_3.follow(T_2);
         V_4.follow(T_2);
+        
+        //T_1.set(1);
+        //T_2.set(1);
+        T_1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
+        T_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
 
         myDrive = new DifferentialDrive(T_1, T_2);
 

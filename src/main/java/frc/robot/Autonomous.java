@@ -348,6 +348,13 @@ public class Autonomous {
 
   public void Test() {
 
+<<<<<<< Updated upstream
+=======
+    useGyro.rotateToAngle(90);
+    
+
+    /*
+>>>>>>> Stashed changes
     if (autoStep == 0) {
 
       if (timer.get() < 3) {

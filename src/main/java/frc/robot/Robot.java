@@ -53,8 +53,13 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
     stick2 = new Joystick(1);
     drivetrain = new Drivetrain(0, 1, 2, 3, 4, 5, stick);
+<<<<<<< Updated upstream
     intake = new Intake(9, 8, stick2);
     lift = new Lift(0, 1, stick2);
+=======
+    intake = new Intake(8, 9, stick2);
+    lift = new Lift(0, 1, 5, stick2, stick);
+>>>>>>> Stashed changes
     cPanel = new ControlPanel(6, 7, stick2);
     timer = new Timer();
 
@@ -173,12 +178,15 @@ public class Robot extends TimedRobot {
     cPanel.PanelControl();
     drivetrain.TalonDrive();
 
+    lift.lock();
+
     if (stick.getRawAxis(2) > .5) {
       drivetrain.TalonDriveNoLimiter();
 
     } else {
       drivetrain.TalonDrive();
     }
+
 
   }
 
