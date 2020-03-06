@@ -34,18 +34,19 @@ public class ControlPanel {
 
         if (stick.getRawButton(2) == true) {
 
-            Window.set(.3);
+            Window.set(-.3);
 
         }
 
-        else if (stick.getRawButton(3) == true) {
+        else if (stick.getRawButton(1) == true) {
 
-            Window.set(-.3);
+            Red.set(-1);
         }
 
         else {
 
             Window.set(0);
+            Red.set(0);
         }
 
     }

@@ -133,10 +133,6 @@ public class Autonomous {
 
   }
 
-
-
-
-
   public void StartClose() {
 
     if (autoStep == 0) {
@@ -153,7 +149,7 @@ public class Autonomous {
 
       if (timer.get() < 1.2) {
         useRobot.IntakeShoot();
-      } else { 
+      } else {
         autoStep = 2;
         timer.reset();
         timer.start();
@@ -211,37 +207,19 @@ public class Autonomous {
         ahrs.reset();
       }
       /*
-    } else if (autoStep == 7) {
-
-      if (timer.get() < 1) {
-        useGyro.rotateToAngle(-90);
-      } else {
-        autoStep = 8;
-        timer.reset();
-        timer.start();
-        ahrs.reset();
-      }
-    }else if (autoStep == 8) {
-
-      if (timer.get() < 3) {
-        useRobot.DriveForward();
-        useRobot.IntakePickUp();
-      } else {
-        autoStep = 9;
-        timer.reset();
-        timer.start();
-        ahrs.reset();   
-        useRobot.IntakeStop();
-      } */
-    } 
+       * } else if (autoStep == 7) {
+       * 
+       * if (timer.get() < 1) { useGyro.rotateToAngle(-90); } else { autoStep = 8;
+       * timer.reset(); timer.start(); ahrs.reset(); } }else if (autoStep == 8) {
+       * 
+       * if (timer.get() < 3) { useRobot.DriveForward(); useRobot.IntakePickUp(); }
+       * else { autoStep = 9; timer.reset(); timer.start(); ahrs.reset();
+       * useRobot.IntakeStop(); }
+       */
+    }
   }
 
-
-
-
-
   public void StartFar() {
-
 
     if (autoStep == 0) {
 
@@ -342,94 +320,44 @@ public class Autonomous {
 
   public void DoNothing() {
 
-  
-
   }
 
   public void Test() {
 
-<<<<<<< Updated upstream
-=======
     useGyro.rotateToAngle(90);
-    
 
     /*
->>>>>>> Stashed changes
-    if (autoStep == 0) {
-
-      if (timer.get() < 3) {
-        useRobot.DriveForward();
-      } else {
-        autoStep = 1;
-        timer.reset();
-        timer.start();
-        ahrs.reset();
-      }
-    } else if (autoStep == 1) {
-
-      if (timer.get() < 1.2) {
-        useRobot.IntakeShoot();
-      } else { 
-        autoStep = 2;
-        timer.reset();
-        timer.start();
-        useRobot.IntakeStop();
-      }
-    } else if (autoStep == 2) {
-
-      if (timer.get() < .5) {
-        useRobot.DriveBack();
-      } else {
-        autoStep = 3;
-        timer.reset();
-        timer.start();
-        ahrs.reset();
-      }
-
-    } else if (autoStep == 3) {
-
-      if (timer.get() < 2.3) {
-        useGyro.rotateToAngle(180);
-      } else {
-        autoStep = 4;
-        timer.reset();
-        timer.start();
-        ahrs.reset();
-      }
-    } else if (autoStep == 4) {
-
-      if (timer.get() < 4.5) {
-        useRobot.DriveForward();
-      } else {
-        autoStep = 5;
-        timer.reset();
-        timer.start();
-        ahrs.reset();
-      
-      }
-    } else if (autoStep == 5) {
-
-      if (timer.get() < 2) {
-        useRobot.DriveForward();
-        useRobot.IntakePickUp();
-      } else {
-        autoStep = 6;
-        timer.reset();
-        timer.start();
-        ahrs.reset();
-      }
-    }
+     * if (autoStep == 0) {
+     * 
+     * if (timer.get() < 3) { useRobot.DriveForward(); } else { autoStep = 1;
+     * timer.reset(); timer.start(); ahrs.reset(); } } else if (autoStep == 1) {
+     * 
+     * if (timer.get() < 1.2) { useRobot.IntakeShoot(); } else { autoStep = 2;
+     * timer.reset(); timer.start(); useRobot.IntakeStop(); } } else if (autoStep ==
+     * 2) {
+     * 
+     * if (timer.get() < .5) { useRobot.DriveBack(); } else { autoStep = 3;
+     * timer.reset(); timer.start(); ahrs.reset(); }
+     * 
+     * } else if (autoStep == 3) {
+     * 
+     * if (timer.get() < 2.3) { useGyro.rotateToAngle(180); } else { autoStep = 4;
+     * timer.reset(); timer.start(); ahrs.reset(); } } else if (autoStep == 4) {
+     * 
+     * if (timer.get() < 4.5) { useRobot.DriveForward(); } else { autoStep = 5;
+     * timer.reset(); timer.start(); ahrs.reset();
+     * 
+     * } } else if (autoStep == 5) {
+     * 
+     * if (timer.get() < 2) { useRobot.DriveForward(); useRobot.IntakePickUp(); }
+     * else { autoStep = 6; timer.reset(); timer.start(); ahrs.reset(); } } }
+     * 
+     * 
+     * 
+     * public void TestDriveStraightInit() { useRobot.driveStraightInit(); }
+     * 
+     * public void TestDriveStraight() { useRobot.driveStraight(); }
+     * 
+     */
   }
-  
-
-
-  public void TestDriveStraightInit() {
-    useRobot.driveStraightInit();
-  }
-  
-  public void TestDriveStraight() {
-    useRobot.driveStraight();
-  }
-
-
 }

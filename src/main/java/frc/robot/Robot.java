@@ -53,13 +53,8 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
     stick2 = new Joystick(1);
     drivetrain = new Drivetrain(0, 1, 2, 3, 4, 5, stick);
-<<<<<<< Updated upstream
-    intake = new Intake(9, 8, stick2);
-    lift = new Lift(0, 1, stick2);
-=======
     intake = new Intake(8, 9, stick2);
     lift = new Lift(0, 1, 5, stick2, stick);
->>>>>>> Stashed changes
     cPanel = new ControlPanel(6, 7, stick2);
     timer = new Timer();
 
@@ -103,19 +98,25 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    //useRobot.DriveOff();
+    useRobot.DriveOff();
 
   }
 
   @Override
   public void robotPeriodic() {
 
+    drivetrain.MagEncoder();
+    SmartDashboard.putNumber("left", drivetrain.T_1.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("right", drivetrain.T_2.getSelectedSensorVelocity());
+  
+
+
 
   }
 
   @Override
   public void autonomousInit() {
-    useAuto.TestDriveStraightInit();
+  
     useAuto.resetStep();
 
     if (autoChooser.getSelected() == ("Start Close")) {
@@ -163,10 +164,8 @@ public class Robot extends TimedRobot {
         System.out.println("Testing");
         useAuto.Test();
         break;
-      case (6):
-        System.out.println("drive straight");
-        useAuto.TestDriveStraight();
-      }
+    }
+     
 
   }
 

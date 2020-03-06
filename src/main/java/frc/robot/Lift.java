@@ -60,6 +60,6 @@ public class Lift {
         } else {
             S_1.set(0);
         }
-\    }
+   }
 
 }

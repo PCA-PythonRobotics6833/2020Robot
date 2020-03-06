@@ -59,10 +59,18 @@ public class Drivetrain {
         
         //T_1.set(1);
         //T_2.set(1);
-        T_1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
-        T_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
+      //  T_1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
+      //  T_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
 
         myDrive = new DifferentialDrive(T_1, T_2);
+
+        T_1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        T_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+
+        this.left_mag = (T_1.getSelectedSensorPosition());
+        this.right_mag = (T_2.getSelectedSensorPosition());
+        
+        
 
     }
 
@@ -85,19 +93,16 @@ public class Drivetrain {
 
     public void MagEncoder() {
 
-        T_1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-        T_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+       
+        SmartDashboard.putNumber("left", left_mag);
+        SmartDashboard.putNumber("left", right_mag);
 
-        this.left_mag = (T_1.getSelectedSensorVelocity(0));
-        this.right_mag = (T_2.getSelectedSensorVelocity(0));
 
     }
 
     public void SmartDashboard() {
 
-        SmartDashboard.putNumber("left", left_mag);
-        SmartDashboard.putNumber("left", right_mag);
-
+        
     }
 
 }
